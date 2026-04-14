@@ -45,38 +45,38 @@ const features = [
     title: "Ultra Fast",
     description:
       "Experience blazing fast performance with our optimized core algorithms.",
-    icon: "⚡",
+    icon: '<svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>',
   },
   {
     id: 2,
     title: "Secure Design",
     description: "Built with enterprise-ready security at its foundation.",
-    icon: "🛡️",
+    icon: '<svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" /></svg>',
   },
   {
     id: 3,
     title: "Scalable",
     description:
       "Ready to grow with your business to any size without compromises.",
-    icon: "📈",
+    icon: '<svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 17l6-6 4 4 8-8M17 7h4v4" /></svg>',
   },
   {
     id: 4,
     title: "Interactive",
     description: "Engage your users with beautiful interactive elements.",
-    icon: "✨",
+    icon: '<svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" /></svg>',
   },
   {
     id: 5,
     title: "Modern UI",
     description: "Sleek, futuristic, and premium glassmorphism design.",
-    icon: "💎",
+    icon: '<svg viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" /></svg>',
   },
   {
     id: 6,
     title: "No Backend",
     description: "Runs completely in the browser for maximum simplicity.",
-    icon: "🌐",
+    icon: '<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>',
   },
 ];
 
@@ -171,7 +171,7 @@ const plans = ref(pricingPlans);
             breathtaking, interactive masterpieces. Wait no more to reinvent
             your digital identity.
           </p>
-          <div style="margin-top: 2rem">
+          <div class="about-action">
             <a
               href="https://vuejs.org/guide/introduction.html"
               target="_blank"
@@ -206,7 +206,7 @@ const plans = ref(pricingPlans);
           class="feature-card glass reveal fade-up"
           :style="{ transitionDelay: `${(index % 3) * 150}ms` }"
         >
-          <div class="icon-wrapper">{{ feature.icon }}</div>
+          <div class="icon-wrapper" v-html="feature.icon"></div>
           <h3>{{ feature.title }}</h3>
           <p>{{ feature.description }}</p>
         </div>
@@ -527,14 +527,18 @@ const plans = ref(pricingPlans);
 }
 
 .text-left {
-  text-align: left !important;
-  margin-bottom: 2rem !important;
+  text-align: left;
+  margin-bottom: 2rem;
 }
 
 .paragraph {
   color: var(--text-secondary);
   font-size: 1.1rem;
   margin-bottom: 1.5rem;
+}
+
+.about-action {
+  margin-top: 2rem;
 }
 
 .about-stats {
@@ -597,6 +601,7 @@ const plans = ref(pricingPlans);
     border-color 0.3s ease;
   position: relative;
   overflow: hidden;
+  text-align: center; /* Centering content and icons inside */
 }
 
 .feature-card::before {
@@ -629,7 +634,9 @@ const plans = ref(pricingPlans);
 .icon-wrapper {
   font-size: 3rem;
   margin-bottom: 1.5rem;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 1rem;
   border-radius: 16px;
   background: rgba(255, 255, 255, 0.05);
@@ -638,6 +645,14 @@ const plans = ref(pricingPlans);
 
 .feature-card:hover .icon-wrapper {
   transform: scale(1.1) rotate(5deg);
+}
+
+.icon-wrapper :deep(svg) {
+  width: 2.2rem;
+  height: 2.2rem;
+  stroke: var(--primary);
+  fill: none;
+  stroke-width: 1.5;
 }
 
 .feature-card h3 {
@@ -794,12 +809,29 @@ const plans = ref(pricingPlans);
   transform: scale(0.9);
 }
 
-/* Responsive */
+/* -----------------------------
+   Responsive Medias
+------------------------------ */
+@media (max-width: 1024px) {
+  .hero-graphic {
+    width: 400px;
+    height: 400px;
+  }
+
+  .about-container {
+    gap: 2rem;
+  }
+}
+
 @media (max-width: 968px) {
   .hero {
     flex-direction: column;
     text-align: center;
     padding-top: 6rem;
+  }
+
+  .hero-content {
+    max-width: 100%;
   }
 
   .hero-graphic {
@@ -809,6 +841,10 @@ const plans = ref(pricingPlans);
 
   .cta-group {
     justify-content: center;
+  }
+
+  .subtitle {
+    margin: 0 auto 2.5rem auto;
   }
 
   .about-container {
@@ -827,11 +863,123 @@ const plans = ref(pricingPlans);
   .featured-plan:hover {
     transform: translateY(-5px);
   }
+
+  .about-stats {
+    margin-top: 2rem;
+  }
 }
 
 @media (max-width: 768px) {
   .nav-links {
     display: none;
+  }
+
+  .logo {
+    font-size: 1.5rem;
+  }
+
+  .navbar {
+    padding: 1.5rem 5%;
+  }
+
+  .gradient-text {
+    font-size: 3.5rem;
+  }
+
+  .subtitle {
+    font-size: 1.1rem;
+    max-width: 100%;
+  }
+
+  .cta-group {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .large {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+  }
+
+  .hero-graphic {
+    height: 350px;
+  }
+
+  .shape-1 {
+    width: 180px;
+    height: 220px;
+    left: 10%;
+  }
+  .shape-2 {
+    width: 150px;
+    height: 150px;
+    right: 5%;
+  }
+  .shape-3 {
+    width: 100px;
+    height: 100px;
+  }
+
+  .section-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+  }
+
+  .about-section,
+  .features,
+  .pricing {
+    padding: 4rem 5%;
+    margin-top: 0;
+  }
+
+  .about-stats {
+    grid-template-columns: 1fr;
+    padding: 2rem;
+  }
+
+  .stat-item h3 {
+    font-size: 2.5rem;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .pricing-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .footer-content {
+    flex-direction: column;
+    gap: 1.5rem;
+    text-align: center;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .gradient-text {
+    font-size: 2.8rem;
+  }
+
+  .section-title {
+    font-size: 2rem;
+  }
+
+  .feature-card {
+    padding: 2rem 1.5rem;
+  }
+
+  .pricing-card {
+    padding: 2.5rem 1.5rem;
+  }
+
+  .price {
+    font-size: 2.8rem;
   }
 }
 </style>
